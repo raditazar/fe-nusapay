@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import type { Employee, Recipient } from "@/types/recipient";
 import { Button } from "../ui/button";
 import FormField from "./FormField";
@@ -81,10 +81,20 @@ export default function BeneficiaryModal({
       alert("Please fill in all required fields");
       return;
     }
+
+    if (!user || !user._id) {
+        alert("User data is not available. Please try again later.");
+        return;
+    }
+    if (!currentTemplateId) {
+        alert("No active template selected. Please select a template first.");
+        return;
+    }
+
     console.log(currentTemplateId);
 
     const commonPayload = {
-      companyId: user?._id!, // TODO: Ambil dari cookie/session nanti
+      companyId: user._id, // TODO: Ambil dari cookie/session nanti
       companyName: process.env.NEXT_PUBLIC_COMPANY_NAME!, // TODO: Ambil dari auth
       name: formData.name,
       bankCode: "014", // TODO: Bisa pakai enum/mapping dari nama bank
@@ -95,7 +105,7 @@ export default function BeneficiaryModal({
       amountTransfer: Number.parseFloat(formData.amountTransfer),
       currency: formData.currency || "USDC",
       localCurrency: formData.localCurrency || "IDR",
-      groupId: currentTemplateId!, // harusnya diganti dengan bisa menyesuaikan skrg lagi ada di template apa
+      groupId: currentTemplateId, // harusnya diganti dengan bisa menyesuaikan skrg lagi ada di template apa
     };
 
     if (isEditMode && employee) {
@@ -170,13 +180,6 @@ export default function BeneficiaryModal({
           </div>
 
           <div className="flex space-x-3">
-            {/* Reset Button - hanya tampil di edit mode */}
-            {/* {isEditMode && (
-                            <Button onClick={handleReset} variant="outline" className="flex-1 btn-secondary" type="button">
-                                Reset
-                            </Button>
-                        )} */}
-
             {/* Submit Button */}
             <Button
               onClick={handleSubmit}

@@ -29,7 +29,7 @@ export default function DashboardHeader({templates, currentTemplate, onTemplateS
 
         switchTemplate(templateId)
         onTemplateSwitch(templateId)
-        handleCloseDropDown
+        handleCloseDropDown()
     }
 
     // handler untuk buat template baru

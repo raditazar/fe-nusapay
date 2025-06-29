@@ -1,6 +1,6 @@
 "use client";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import {jwtDecode} from "jwt-decode";
+// import {jwtDecode} from "jwt-decode";
 import { fetchCurrentUser } from "@/api";
 
 type UserInfo = {
@@ -30,7 +30,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         const userData = await fetchCurrentUser();
         setUser(userData);
       } catch (error) {
-        console.error("User not logged in or session expired.");
+        console.error("User not logged in or session expired: ", error);
       } finally {
         setLoading(false); // 🆕 Jangan lupa
       }

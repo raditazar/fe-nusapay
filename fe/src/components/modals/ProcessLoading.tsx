@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react"
 import { Check } from "lucide-react"
 import ModalOverlay from "./ModalOverlay"
-import { Description } from "@radix-ui/react-alert-dialog"
 
 /**
  * Process Loading Components
@@ -165,9 +164,9 @@ interface ProcessStageItemProps{
 function ProcessStageItem({stage, isActive, isCompleted, isPending}: ProcessStageItemProps){
     return(
         <div
-            className={`flex items-center space-x-4  rounded-lg transition-all duration-300 bg-transparent 
-            }`}
-        >
+            className={`flex items-center space-x-4 rounded-lg transition-all duration-300 bg-transparent ${isPending ? "opacity-40" : "opacity-100"}`}
+    >
+        
             {/* Icon */}
             <div className="flex-shrink-0">
                 {isCompleted ? (

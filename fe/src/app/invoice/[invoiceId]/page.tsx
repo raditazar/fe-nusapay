@@ -8,7 +8,6 @@ import { ErrorMessage } from "@/components/ui/error-message";
 import { ArrowLeft } from "lucide-react";
 import type { Invoice } from "@/types/invoice";
 import { useState, useEffect } from "react";
-import { invoiceApi } from "@/lib/invoiceApi";
 import { loadInvoiceData } from "@/api";
 export default function InvoicePage() {
   const params = useParams();
@@ -111,7 +110,7 @@ export default function InvoicePage() {
   // }
 
   // const currentRecipient = invoice.recipients[currentRecipientIndex]
-  const description = `Transfer to ${invoice.templateName}`;
+  // const description = `Transfer to ${invoice.templateName}`;
 
   return (
     <div className="min-h-[75vh] bg-black px-4 sm:px-6 py-8 sm:py-10 text-white">

@@ -1,6 +1,7 @@
 //data penerima
 
 // Keperluan UI (gaada companyId dll untuk ga ditampilin)
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface Recipient{
     _id: string
     name: string

@@ -17,13 +17,10 @@ import {
   AlertDialogTitle
 } from "@/components/ui/alert-dialog"
 import type { Template } from "@/lib/template"
-import { AlertDialogDescription } from "@radix-ui/react-alert-dialog"
 import ProcessingModal from "@/components/modals/ProcessLoading"
 import { addGroupName, deleteEmployeeData, editEmployeeData, loadEmployeeData, loadGroupName } from "@/api"
-import { TemplateProvider, useTemplate } from "@/lib/TemplateContext"
-import { UserProvider, useUser } from "@/lib/UserContext"
+import {  useUser } from "@/lib/UserContext"
 import { useRouter } from "next/navigation"
-import { invoiceApi } from "@/lib/invoiceApi"
 
 export default function Dashboard() {
   const router = useRouter()
@@ -38,7 +35,7 @@ export default function Dashboard() {
   const [showTransferAlert, setShowTransferAlert] = useState(false)
   const [showProcessingModal, setShowProcessingModal] = useState(false)
   
-  const [newlyCreatedInvoiceId, setNewlyCreatedInvoiceId] = useState<string|null>(null)
+  // const [newlyCreatedInvoiceId, setNewlyCreatedInvoiceId] = useState<string|null>(null)
   const [isStage1Complete, setIsStage1Complete] = useState(false)
 
   // Fetch all templates first
@@ -199,15 +196,15 @@ export default function Dashboard() {
     setIsStage1Complete(false)
 
     try{
-      const creationPayload = {
-        txId: "123",
-        companyId: user._id,
-        templateName: currentTemplate.nameOfGroup,
-        recipients: currentTemplate.recipients.map(r =>({
-          employeeId: r._id,
-          amount: r.amountTransfer,
-        }))
-      }
+      // const creationPayload = {
+      //   txId: "123",
+      //   companyId: user._id,
+      //   templateName: currentTemplate.nameOfGroup,
+      //   recipients: currentTemplate.recipients.map(r =>({
+      //     employeeId: r._id,
+      //     amount: r.amountTransfer,
+      //   }))
+      // }
       //loading 1
       // const newInvoice = await addInvoiceData(creationPayload);
       // setNewlyCreatedInvoiceId(newInvoice._id)
@@ -216,7 +213,7 @@ export default function Dashboard() {
     }catch (err){
       console.error("Failed to create invoice: ", err)
       setShowProcessingModal(false)
-      setNewlyCreatedInvoiceId(null)
+      // setNewlyCreatedInvoiceId(null)
     }
   }
 
