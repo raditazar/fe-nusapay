@@ -26,10 +26,11 @@ export default function InvoicePage() {
         const invoiceData = await loadInvoiceData({ txId: invoiceId });
         // const invoiceData = await invoiceApi.getById(invoiceId)
         console.log(invoiceData.data);
-        setInvoice(invoiceData.data);
+        setInvoice(invoiceData.data??null);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Failed to load invoice");
         console.error("Error fetching invoice: ", err);
+        setInvoice(null)
       } finally {
         setLoading(false);
       }

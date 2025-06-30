@@ -6,6 +6,7 @@ import {
   Recipient,
 } from "./types/recipient";
 import { Template } from "./lib/template";
+import { ApiResponse } from "./lib/invoiceApi";
 import { Invoice } from "./types/invoice";
 // import {  InvoiceSummary } from "./types/invoice";
 
@@ -104,7 +105,7 @@ export const fetchCurrentUser = async () => {
 
 export const loadInvoiceData = async (payload: {
   txId: string;
-}): Promise<Invoice> => {
+}): Promise<ApiResponse<Invoice>> => {
   const response = await api.post("/loadInvoiceData", payload);
   console.log(payload);
   return response.data;
