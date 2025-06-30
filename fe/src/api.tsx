@@ -164,8 +164,12 @@ export const loadEmployeeData = async (
     );
     console.log(response);
     return response.data.data;
-  } catch (error: any) {
-    console.error("Failed to load employee data:", error?.message || error);
+  } catch (error: unknown) { 
+    if (error instanceof Error) {
+        console.error("Failed to load employee data:", error.message);
+    } else {
+        console.error("An unknown error occurred:", error);
+    }
     throw error;
   }
 };

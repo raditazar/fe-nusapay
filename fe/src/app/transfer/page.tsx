@@ -115,7 +115,7 @@ const handleTemplateSwitch =useCallback( async (templateId: string) => {
     console.log(user)
     const newTemplate = {
       groupId: `${Date.now()}`,
-      companyId: user?._id!,
+      companyId: user._id,
       companyName: process.env.NEXT_PUBLIC_COMPANY_NAME!,
       nameOfGroup: templateName,
       recipients: [],
