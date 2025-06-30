@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import DashboardHeader from "@/components/dashboard/Header"
 import RecipientGrid from "@/components/dashboard/RecipientGrid"
 import TransferPanel from "@/components/dashboard/TransferPanel"
@@ -37,42 +37,7 @@ export default function Dashboard() {
   
   // const [newlyCreatedInvoiceId, setNewlyCreatedInvoiceId] = useState<string|null>(null)
   const [isStage1Complete, setIsStage1Complete] = useState(false)
-
-  // Fetch all templates first
-  useEffect(() => {
-    if (loading || !user?._id) return; // ⛔ jangan fetch dulu kalau loading atau user belum ada
-  
-    const fetchTemplatesAndEmployees = async () => {
-      try {
-        console.log( user); // Debug
-        const groupTemplates = await loadGroupName({
-          companyId: user._id,
-        });
-  
-        const templatesWithEmptyRecipients: Template[] = groupTemplates.map((group: any) => ({
-          groupId: group.groupId,
-          companyId: group.companyId,
-          companyName: group.companyName,
-          nameOfGroup: group.nameOfGroup,
-          recipients: group.employees,
-          createdAt: new Date(group.createdAt),
-          updatedAt: new Date(group.updatedAt),
-        }));
-  
-        setTemplates(templatesWithEmptyRecipients);
-  
-        if (templatesWithEmptyRecipients.length > 0) {
-          handleTemplateSwitch(templatesWithEmptyRecipients[0].groupId);
-        }
-      } catch (err) {
-        console.error("Failed to fetch templates", err);
-      }
-    };
-  
-    fetchTemplatesAndEmployees();
-  }, [loading, user]); // ✅ Tambahkan dependency ke user dan loading
-
-  const handleTemplateSwitch = async (templateId: string) => {
+const handleTemplateSwitch =useCallback( async (templateId: string) => {
     const selected = templates.find((t) => t.groupId === templateId);
     if (!selected) return;
 
@@ -83,7 +48,7 @@ export default function Dashboard() {
 
       console.log(response)
 
-      const recipientsFromBackend: Recipient[] = response.map((emp: any) => ({
+      const recipientsFromBackend: Recipient[] = response.map((emp: Recipient) => ({
         _id: emp._id,
         name: emp.name,
         bankCode: emp.bankCode,
@@ -104,9 +69,48 @@ export default function Dashboard() {
     } catch (err) {
       console.error("Failed to load employees for group", err);
     }
-  };
+  },[templates])
+  // Fetch all templates first
+  useEffect(() => {
+    if (loading || !user?._id) return; // ⛔ jangan fetch dulu kalau loading atau user belum ada
+  
+    const fetchTemplatesAndEmployees = async () => {
+      try {
+        console.log( user); // Debug
+        const groupTemplates = await loadGroupName({
+          companyId: user._id,
+        });
+  
+        const templatesWithEmptyRecipients: Template[] = groupTemplates.map((group: Template) => ({
+          groupId: group.groupId,
+          companyId: group.companyId,
+          companyName: group.companyName,
+          nameOfGroup: group.nameOfGroup,
+          recipients: group.recipients,
+          createdAt: new Date(group.createdAt),
+          updatedAt: new Date(group.updatedAt),
+        }));
+  
+        setTemplates(templatesWithEmptyRecipients);
+  
+        if (templatesWithEmptyRecipients.length > 0) {
+          handleTemplateSwitch(templatesWithEmptyRecipients[0].groupId);
+        }
+      } catch (err) {
+        console.error("Failed to fetch templates", err);
+      }
+    };
+  
+    fetchTemplatesAndEmployees();
+  }, [loading, user, handleTemplateSwitch]); // ✅ Tambahkan dependency ke user dan loading
+
+  
 
   const handleCreateTemplate = async (templateName: string) => {
+    if (!user || !user._id) {
+        alert("Cannot create template: User not found.");
+        return;
+    }
     console.log(user?._id)
     console.log(user)
     const newTemplate = {
@@ -148,15 +152,15 @@ export default function Dashboard() {
     setShowBeneficiaryModal(false);
   };
 
-  const handleEditRecipient = (updated: Recipient) => {
-    if (!currentTemplate) return;
-    const updatedList = currentTemplate.recipients.map((r) =>
-      r._id === updated._id ? updated : r
-    );
-    updateCurrentTemplateRecipients(updatedList);
-    setEditingRecipient(null);
-    setShowBeneficiaryModal(false);
-  };
+  // const handleEditRecipient = (updated: Recipient) => {
+  //   if (!currentTemplate) return;
+  //   const updatedList = currentTemplate.recipients.map((r) =>
+  //     r._id === updated._id ? updated : r
+  //   );
+  //   updateCurrentTemplateRecipients(updatedList);
+  //   setEditingRecipient(null);
+  //   setShowBeneficiaryModal(false);
+  // };
 
   const handleRemoveRecipient = async (id: string) => {
     if (!currentTemplate) return;

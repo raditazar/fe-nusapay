@@ -1,6 +1,5 @@
 // invoice.ts
 
-import type { Recipient } from "./recipient";
 
 /**
  * Mendefinisikan kemungkinan status dari sebuah invoice.

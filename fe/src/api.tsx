@@ -6,10 +6,12 @@ import {
   Recipient,
 } from "./types/recipient";
 import { Template } from "./lib/template";
+import { InvoiceCreationPayload } from "./types/invoice";
 
 // =====================
 // TIPE DATA
 // =====================
+
 interface AuthUser {
   companyId: string; //ambil dari ID google
   email: string;
@@ -17,6 +19,7 @@ interface AuthUser {
   walletAddress?: string;
   networkChainId?: string;
 }
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface AuthResponse {
   authenticated: boolean;
   user?: AuthUser;
@@ -100,7 +103,7 @@ export const fetchCurrentUser = async () => {
 
 export const loadInvoiceData = async (payload: {
   txId: string;
-}): Promise<any> => {
+}): Promise<InvoiceCreationPayload> => {
   const response = await api.post("/loadInvoiceData", payload);
   console.log(payload);
   return response.data;
@@ -135,8 +138,13 @@ export const loadGroupName = async (
     );
     console.log(response.data.data);
     return response.data.data;
-  } catch (error: any) {
-    console.error("Failed to load employee data:", error?.message || error);
+  } catch (error: unknown) { // ✅ SOLUSI 3: Ganti 'any' dengan 'unknown'
+    // Lakukan pemeriksaan tipe sebelum mengakses properti
+    if (error instanceof Error) {
+        console.error("Failed to load group name:", error.message);
+    } else {
+        console.error("An unknown error occurred:", error);
+    }
     throw error;
   }
 };
