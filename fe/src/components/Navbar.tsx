@@ -9,6 +9,7 @@ import { CgProfile } from "react-icons/cg";
 import { IoWalletOutline } from "react-icons/io5";
 import { FaHistory } from "react-icons/fa";
 import { BiLogOutCircle } from "react-icons/bi";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 interface UserData {
   _id: string;
@@ -206,15 +207,11 @@ const Navbar: React.FC = () => {
                   Connect wallet to access all the details and features.
                 </p>
                 {/* Connect Wallet Button */}
-                <button
-                  className="px-6 py-1.5 rounded-full border-y-1 bg-white/10 text-sm text-white font-bold hover:bg-white/20 hover:scale-105 transition-transform duration-300 ease-in-out"
-                  onClick={() => {
-                    // connect wallet trigger
-                    console.log("Connect Wallet clicked");
-                  }}
-                >
-                  Connect Wallet
-                </button>
+                <ConnectButton
+                  chainStatus="icon"
+                  accountStatus="avatar"
+                  showBalance={false}
+                />
               </div>
 
               {/* Menu Items */}

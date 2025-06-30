@@ -5,6 +5,7 @@ import type React from "react";
 import Navbar from "@/components/Navbar";
 import { UserProvider } from "@/lib/UserContext";
 import { TemplateProvider } from "@/lib/TemplateContext";
+import Provider from "./provider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -26,8 +27,10 @@ export default function RootLayout({
       <body className={poppins.className + " bg-[#000000] text-white"}>
     <UserProvider>
       <TemplateProvider>
+        <Provider>
         <Navbar />
         <div className=" px-4 pt-[74px]">{children}</div>
+        </Provider>
       </TemplateProvider>
     </UserProvider>
       </body>
