@@ -25,14 +25,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className + " bg-[#000000] text-white"}>
+    <Provider>
     <UserProvider>
       <TemplateProvider>
-        <Provider>
         <Navbar />
         <div className=" px-4 pt-[74px]">{children}</div>
-        </Provider>
       </TemplateProvider>
     </UserProvider>
+    </Provider>
       </body>
     </html>
   );
