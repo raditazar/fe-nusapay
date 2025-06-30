@@ -6,7 +6,7 @@ import {
   Recipient,
 } from "./types/recipient";
 import { Template } from "./lib/template";
-import {  InvoiceProcessResult, InvoiceSummary } from "./types/invoice";
+import {  InvoiceSummary } from "./types/invoice";
 
 // =====================
 // TIPE DATA
