@@ -28,6 +28,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const getUser = async () => {
       try {
         const userData = await fetchCurrentUser();
+        console.log(userData);
         setUser(userData);
       } catch (error) {
         console.error("User not logged in or session expired: ", error);
@@ -45,4 +46,3 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     </UserContext.Provider>
   );
 };
-

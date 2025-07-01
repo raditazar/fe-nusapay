@@ -193,7 +193,6 @@ const Navbar: React.FC = () => {
 
               {/* Warning & Connect Wallet */}
               <div className="text-center bg-[#2a2a2a] rounded-lg py-4 mb-4 border border-red-500/20">
-                
                 {/* Connect Wallet Button */}
                 <ConnectButton
                   chainStatus="icon"

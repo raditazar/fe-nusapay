@@ -3,7 +3,13 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-const words = ["CUMING SOON!", "STAY TUNED!", "LAUNCHING SOON 🚀", "GET READY!", "RAMZI ALFITO"];
+const words = [
+  "COMING SOON!",
+  "STAY TUNED!",
+  "LAUNCHING SOON 🚀",
+  "GET READY!",
+  "EXCITING THINGS AHEAD!",
+];
 
 export default function Homepage() {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
