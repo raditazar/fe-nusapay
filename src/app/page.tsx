@@ -47,8 +47,8 @@ export default function Homepage() {
             if (token) {
               window.location.href = "/transfer";
             } else {
-              // window.location.href = `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/google`;
-              window.location.href = "https://be-nusapay.vercel.app/auth/google";
+              window.location.href = `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/google`;
+              // window.location.href = "https://be-nusapay.vercel.app/auth/google";
             }
           }}
         >

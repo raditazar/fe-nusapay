@@ -277,8 +277,8 @@ const Navbar: React.FC = () => {
     text-white font-semibold px-10 py-2 rounded-full shadow hover:scale-105 border-y-1
     transition duration-300 hover:cursor-pointer"
               onClick={() => {
-                // window.location.href = `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/google`;
-                window.location.href = "https://be-nusapay.vercel.app/auth/google";
+                window.location.href = `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/google`;
+                // window.location.href = "https://be-nusapay.vercel.app/auth/google";
               }}
             >
               <span className="relative z-20">Get Started</span>
@@ -378,8 +378,8 @@ const Navbar: React.FC = () => {
             <button
               className="bg-gradient-to-r from-[#1F1F1F] to-[#00B8FF] text-white font-semibold px-6 py-3 rounded-full shadow border-y-1"
               onClick={() => {
-                // window.location.href = `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/google`;
-                window.location.href = "https://be-nusapay.vercel.app/auth/google";
+                window.location.href = `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/google`;
+                // window.location.href = "https://be-nusapay.vercel.app/auth/google";
               }}
             >
               Get Started
